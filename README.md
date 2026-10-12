@@ -82,3 +82,4 @@ Proyek ini dilisensikan di bawah MIT License.
 
 ## Anggota Kelompok
 - Angel
+- Wofi

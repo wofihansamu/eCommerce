@@ -4,6 +4,7 @@
     public static string lines35 = new String('=',35);
     static void Main(string[] args)
     {
+        Products.seedData();
         while (true) {
             MenuAwal();
         }
@@ -22,6 +23,7 @@
         switch (choose){
             case 1:
                 Users.Login();
+                MenuUtama();
                 break;
             case 2:
                 Users.Register();
@@ -55,6 +57,9 @@
         switch (choose){
             case 0:
                 MenuAwal();
+                break;
+            case 6:
+                Products.menuProduct();
                 break;
             default:
                 Console.WriteLine("Pilihan tidak valid. Silakan coba lagi.");

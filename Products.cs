@@ -6,6 +6,7 @@ class Products {
     public static int[] productId = new int[MAX_PRODUCT_COUNT];
     public static string[] name = new string[MAX_PRODUCT_COUNT];
     public static double[] price = new double[MAX_PRODUCT_COUNT];
+    public static double[] cost = new double[MAX_PRODUCT_COUNT];
     public static string[] category = new string[MAX_PRODUCT_COUNT];
     public static int[] stock = new int[MAX_PRODUCT_COUNT];
 
@@ -13,11 +14,11 @@ class Products {
 
     public static void seedData()
     {
-        _addProd(1, "Sepatu Kets", 20000, "Sepatu", 10);
-        _addProd(2, "Baju Formal L", 20000, "Baju", 5);
-        _addProd(3, "Topi Petani", 20000, "Topi", 20);
-        _addProd(4, "Jazz", 20000, "Baju", 16);
-        _addProd(5, "Jam Tangan 24x1", 20000, "Accesoris", 5);
+        _addProd(1, "Sepatu Kets", 18000, 20000, "Sepatu", 10);
+        _addProd(2, "Baju Formal L", 17000, 25000, "Baju", 5);
+        _addProd(3, "Topi Petani", 14000, 15000, "Topi", 20);
+        _addProd(4, "Jazz", 80000, 100000, "Baju", 16);
+        _addProd(5, "Jam Tangan 24x1", 150000, 200000, "Accesoris", 5);
     }
     public static int getIndexProductByID(int id)
     {
@@ -83,11 +84,11 @@ class Products {
         if (productCount > 0)
         {
 
-            Console.WriteLine($"{"No",2}  | {"ID",-3} | {"Nama Produk",-20} | {"Stock",-10} | {"Harga",-10} | {"Kategori",-20} |");
+            Console.WriteLine($"{"No",2}  | {"ID",-3} | {"Nama Produk",-20} | {"Stock",-10} | {"Cost",-10} | {"Harga",-10} | {"Kategori",-20} |");
             Console.WriteLine(new String('-', 73));
             for (int i = 0; i < productCount; i++)
             {
-                Console.WriteLine($"{i+1,2}. | {productId[i],-3} | {name[i],-20} | {String.Format("{0:N0}",stock[i]),-10} | {String.Format("{0:N0}",price[i]) ,-10} | {category[i],-20} |");
+                Console.WriteLine($"{i+1,2}. | {productId[i],-3} | {name[i],-20} | {String.Format("{0:N0}",stock[i]),-10} | {String.Format("{0:N0}",cost[i]) ,-10} | {String.Format("{0:N0}",price[i]) ,-10} | {category[i],-20} |");
             }
             Console.ReadLine();
         }
@@ -98,10 +99,11 @@ class Products {
         }
     }
 
-    static void _addProd(int _id, string _name, double _price, string _kategori, int _stock=0)
+    static void _addProd(int _id, string _name, double _cost, double _price, string _kategori, int _stock=0)
     {
         productId[productCount] = _id;
         name[productCount] = _name;
+        cost[productCount] = _cost;
         price[productCount] = _price;
         category[productCount] = _kategori;
         stock[productCount] = _stock;
@@ -130,13 +132,15 @@ class Products {
             {
                 Console.WriteLine("Enter Product Name : ");
                 string inp_name = Console.ReadLine() ?? "";
+                Console.WriteLine("Enter Product Cost : ");
+                double inp_cost = double.TryParse(Console.ReadLine(), out double cst) ? cst : 0;
                 Console.WriteLine("Enter Product Price : ");
                 double inp_price = double.TryParse(Console.ReadLine(), out double prc) ? prc : 0;
                 Console.WriteLine("Enter Product Category : ");
                 string inp_kategori = Console.ReadLine() ?? "";
                 Console.WriteLine("Enter Product Stock : ");
                 int inp_stock = int.TryParse(Console.ReadLine(), out int st) ? st : 0;
-                _addProd(prodId, inp_name, inp_price, inp_kategori, inp_stock);
+                _addProd(prodId, inp_name, inp_cost, inp_price, inp_kategori, inp_stock);
                 Console.WriteLine("=== Produk berhasil ditambahkan ! ===");
                 Console.ReadLine();
             }
@@ -155,6 +159,9 @@ class Products {
                 String nameToEdit = Console.ReadLine() ?? name[indexToModify];
                 if (!string.IsNullOrEmpty(nameToEdit)) name[indexToModify] = nameToEdit;
                 
+                Console.WriteLine($"Enter Product Cost ({cost[indexToModify]:N0}) : ");
+                cost[indexToModify] = double.TryParse(Console.ReadLine(), out double inp_cost) ? inp_cost : cost[indexToModify];
+
                 Console.WriteLine($"Enter Product Price ({price[indexToModify]:N0}) : ");
                 price[indexToModify] = double.TryParse(Console.ReadLine(), out double inp_price) ? inp_price : price[indexToModify];
 

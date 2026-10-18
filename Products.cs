@@ -1,5 +1,5 @@
 using System;
-class Products
+class Catalog
 {
     public static int[] productId = new int[100];
     public static string[] name = new string[100];

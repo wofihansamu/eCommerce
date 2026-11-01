@@ -58,6 +58,9 @@
             case 0:
                 MenuAwal();
                 break;
+            case 1:
+                Catalog.daftarMenu();
+                break;
             case 6:
                 Products.menuProduct();
                 break;

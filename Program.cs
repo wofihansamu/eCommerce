@@ -48,8 +48,8 @@
         Console.WriteLine($"= {"3. Keranjang",-31} =");
         Console.WriteLine($"= {"4. Checkout",-31} =");
         Console.WriteLine($"= {"5. Riwayat Transaksi",-31} =");
-        Console.WriteLine($"= {"6. Kelola Produk (Admin)",-31} =");
-        Console.WriteLine($"= {"7. Laporan Penjualan (Admin)",-31} =");
+        if(Users.sessionRole=="admin") Console.WriteLine($"= {"6. Kelola Produk (Admin)",-31} =");
+        if(Users.sessionRole=="admin") Console.WriteLine($"= {"7. Laporan Penjualan (Admin)",-31} =");
         Console.WriteLine($"= {"0. Logout/Keluar",-31} =");
         Console.WriteLine(lines35);
         Console.Write("Pilih menu: ");

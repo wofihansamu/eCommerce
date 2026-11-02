@@ -62,6 +62,9 @@
                 case 1:
                     Catalog.daftarMenu();
                     break;
+                case 2:
+                    Cart.List();
+                    break;
                 case 5:
                     Products.menuProduct();
                     break;

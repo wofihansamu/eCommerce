@@ -1,6 +1,7 @@
 class Transaction {
     
     const int MAX_TRX_COUNT = 100;
+    public static string[] date = new string[MAX_TRX_COUNT];
     public static int[] transactionId = new int[MAX_TRX_COUNT];
     public static int[] userId = new int[MAX_TRX_COUNT];
     public static int[] productId = new int[MAX_TRX_COUNT];
@@ -15,6 +16,8 @@ class Transaction {
 
     public static void addTransaction(int trxId, int trxUserId, int trxProductId, int trxQty, double trxDiscount, double trxCost, double trxRetail, double trxTotal)
     {
+        DateTime now = DateTime.Now;
+        date[transactionCount] = now.ToString();
         transactionId[transactionCount] = trxId;
         userId[transactionCount] = trxUserId;
         productId[transactionCount] = trxProductId;

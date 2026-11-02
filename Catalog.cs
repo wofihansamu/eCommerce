@@ -5,6 +5,7 @@ class Catalog
 
     public static void daftarMenu()
     {
+        Console.Clear();
         Console.WriteLine("===== Katalog ======");
         Console.WriteLine("1. Semua Produk");
         Console.WriteLine("2. Produk berdasarkan kategori");
@@ -327,12 +328,13 @@ public static void byCategory()
 
 
                         Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
-                        int inputQty = int.Parse(Console.ReadLine()!);
+                        int inputQty = int.TryParse(Console.ReadLine(), out int qty) ? qty : 0;
                         if (inputQty >= 1 && inputQty <= Products.stock[id])
                         {
                             Products.stock[id] = Products.stock[id] - inputQty;
                             Console.WriteLine();
-                            //menunggu fitur cart
+                            
+                            Cart.AddToCart(Products.productId[id], inputQty);
                             Console.WriteLine($"Ditambahkan: {Products.name[id]}");
                             break;
                         }

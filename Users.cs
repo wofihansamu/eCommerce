@@ -1,9 +1,10 @@
 class Users {
     // GOkd
-    public static int[] userId = new int[100];
-    public static string[] userName = new string[100];
-    public static string[] userPassword = new string[100];
-    public static string[] role = new string[100];
+    const int MAX_USER_COUNT = 100;
+    public static int[] userId = new int[MAX_USER_COUNT];
+    public static string[] userName = new string[MAX_USER_COUNT];
+    public static string[] userPassword = new string[MAX_USER_COUNT];
+    public static string[] role = new string[MAX_USER_COUNT];
 
     public static int userCount = 0;
 

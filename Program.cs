@@ -5,6 +5,7 @@
     static void Main(string[] args)
     {
         Products.seedData();
+        Users.seedData();
         while (true) {
             MenuAwal();
         }
@@ -23,7 +24,6 @@
         switch (choose){
             case 1:
                 Users.Login();
-                MenuUtama();
                 break;
             case 2:
                 Users.Register();

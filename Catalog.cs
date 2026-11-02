@@ -5,6 +5,7 @@ class Catalog
 
     public static void daftarMenu()
     {
+        Console.Clear();
         Console.WriteLine("===== Katalog ======");
         Console.WriteLine("1. Semua Produk");
         Console.WriteLine("2. Produk berdasarkan kategori");

@@ -9,6 +9,7 @@ class Users {
     public static int userCount = 0;
 
     public static string sessionRole = "";
+    public static int sessionUserId = -1;
 
     public static void _saveUser(int _userId, string _userName, string _password, string _role)
     {
@@ -89,6 +90,7 @@ class Users {
             }
         }
         sessionRole = role[foundIndex];
+        sessionUserId = userId[foundIndex];
         Program.MenuUtama();
     }
 

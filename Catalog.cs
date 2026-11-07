@@ -29,8 +29,6 @@ class Catalog
                 break;
         }
     }
-
-
     
 public static void byCategory()
 {

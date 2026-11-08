@@ -148,8 +148,6 @@ public static void byCategory()
 
                     if (inputQty >= 1 && inputQty <= Products.stock[id])
                     {
-                        Products.stock[id] = Products.stock[id] - inputQty;
-
                         Console.WriteLine();
                         Console.WriteLine($"Ditambahkan: {Products.name[id]}");
                         break;
@@ -245,9 +243,7 @@ public static void byCategory()
                         int inputQty = int.Parse(Console.ReadLine()!);
                         if (inputQty >= 1 && inputQty <= Products.stock[id])
                         {
-                            Products.stock[id] = Products.stock[id] - inputQty;
                             Console.WriteLine();
-                            //menunggu fitur cart
                             Console.WriteLine($"Ditambahkan: {Products.name[id]}");
                             break;
                         }
@@ -325,13 +321,10 @@ public static void byCategory()
                     Console.WriteLine();
                     while (true)
                     {
-
-
                         Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
                         int inputQty = int.TryParse(Console.ReadLine(), out int qty) ? qty : 0;
                         if (inputQty >= 1 && inputQty <= Products.stock[id])
                         {
-                            Products.stock[id] = Products.stock[id] - inputQty;
                             Console.WriteLine();
                             
                             Cart.AddToCart(Products.productId[id], inputQty);

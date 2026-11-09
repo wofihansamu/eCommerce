@@ -1,8 +1,42 @@
 using System;
 class Catalog
 {
+public static void TambahKeKeranjang(int id, int qty)
+{
+    int productIndex = Products.getIndexProductByID(id);
 
+    for (int i = 0; i < Cart.cartCount; i++)
+    {
+        if (id == Cart.productId[i])
+        {
+            double totalBaruQtyCart = Cart.productQty[i] + qty;
 
+            if (totalBaruQtyCart <= Products.stock[productIndex])
+            {
+                Cart.productQty[i] += qty;
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Jumlah melebihi stok produk");
+                return;
+            }
+        }
+    }
+
+    if (qty <= Products.stock[productIndex])
+    {
+        Cart.productId[Cart.cartCount] = id;
+        Cart.productQty[Cart.cartCount] = qty;
+        Cart.cartCount++;
+        return;
+    }
+    else
+    {
+        Console.WriteLine("Jumlah melebihi stok produk");
+        return;
+    }
+}
     public static void daftarMenu()
     {
         Console.Clear();
@@ -146,12 +180,10 @@ public static void byCategory()
                     Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
                     int inputQty = int.Parse(Console.ReadLine()!);
 
-                    if (inputQty >= 1 && inputQty <= Products.stock[id])
+                    if (inputQty >= 1)
                     {
-                        Products.stock[id] = Products.stock[id] - inputQty;
-
+                        TambahKeKeranjang(Products.productId[id], inputQty);
                         Console.WriteLine();
-                        Console.WriteLine($"Ditambahkan: {Products.name[id]}");
                         break;
                     }
                     else
@@ -243,12 +275,10 @@ public static void byCategory()
                     {   
                         Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
                         int inputQty = int.Parse(Console.ReadLine()!);
-                        if (inputQty >= 1 && inputQty <= Products.stock[id])
+                        if (inputQty >= 1)
                         {
-                            Products.stock[id] = Products.stock[id] - inputQty;
-                            Console.WriteLine();
-                            //menunggu fitur cart
-                            Console.WriteLine($"Ditambahkan: {Products.name[id]}");
+                            TambahKeKeranjang(Products.productId[id], inputQty);
+                            Console.WriteLine();   
                             break;
                         }
                         else
@@ -325,17 +355,13 @@ public static void byCategory()
                     Console.WriteLine();
                     while (true)
                     {
-
-
                         Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
                         int inputQty = int.TryParse(Console.ReadLine(), out int qty) ? qty : 0;
-                        if (inputQty >= 1 && inputQty <= Products.stock[id])
+                        if (inputQty >= 1)
                         {
-                            Products.stock[id] = Products.stock[id] - inputQty;
                             Console.WriteLine();
                             
-                            Cart.AddToCart(Products.productId[id], inputQty);
-                            Console.WriteLine($"Ditambahkan: {Products.name[id]}");
+                            TambahKeKeranjang(Products.productId[id], inputQty);
                             break;
                         }
                         else

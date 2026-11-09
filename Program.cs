@@ -65,6 +65,9 @@
                 case 2:
                     Cart.List();
                     break;
+                case 3:
+                    Checkout.Process();
+                    break;
                 case 5:
                     Products.menuProduct();
                     break;

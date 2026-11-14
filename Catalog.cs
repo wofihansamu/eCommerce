@@ -1,198 +1,89 @@
-using System;
-class Catalog
-{
-
-
-    public static void daftarMenu()
+    using System;
+    class Catalog
     {
-        Console.Clear();
-        Console.WriteLine("===== Katalog ======");
-        Console.WriteLine("1. Semua Produk");
-        Console.WriteLine("2. Produk berdasarkan kategori");
-        Console.WriteLine("3. Cari Produk");
 
-        // bikin fungsi pilih
-        Console.Write("Silakan pilih menu yang ingin dilihat: ");
-        int choose = int.TryParse(Console.ReadLine(), out int pilih) ? pilih : 0;
-        switch (choose)
+
+        public static void daftarMenu()
         {
-            case 1 :
-                menuProduct();
-                break;
-            case 2:
-                byCategory();
-                break;
-            case 3:
-                search();
-                break;
-            default:
-                break;
-        }
-    }
-    
-public static void byCategory()
-{
-    //kategori unik
-    string[] cat = new string[Products.productCount];
-    int catUnique = 0;
-
-    for (int i = 0; i < Products.productCount; i++)
-    {
-        bool sudahAda = false;
-
-        for (int j = 0; j < catUnique; j++)
-        {
-            if (Products.category[i] == cat[j])
+            Console.Clear();
+            Console.WriteLine("===== Katalog ======");
+            Console.WriteLine("1. Semua Produk");
+            Console.WriteLine("2. Produk berdasarkan kategori");
+            Console.WriteLine("3. Cari Produk");
+            Console.Write("Silakan pilih menu yang ingin dilihat: ");
+            int choose = int.TryParse(Console.ReadLine(), out int pilih) ? pilih : 0;
+            switch (choose)
             {
-                sudahAda = true;
-                break;
+                case 1 :
+                    menuProduct();
+                    break;
+                case 2:
+                    byCategory();
+                    break;
+                case 3:
+                    search();
+                    break;
+                default:
+                    break;
             }
         }
 
-        if (sudahAda == false)
-        {
-            cat[catUnique] = Products.category[i];
-            catUnique++;
-        }
-    }
-
-    //kategori
-    Console.Clear();
-    Console.WriteLine("=== Pilih Kategori ===");
-
-    for (int i = 0; i < catUnique; i++)
+    public static void byCategory()
     {
-        Console.WriteLine($"{i}. {cat[i]}");
-    }
+        //kategori unik
+        string[] cat = new string[Products.productCount];
+        int catUnique = 0;
 
-    Console.WriteLine("Pilih nomor: ");
-    int.TryParse(Console.ReadLine(), out int catChoice);
-
-    if (catChoice < 0 || catChoice >= catUnique)
-        return;
-
-    string selected = cat[catChoice];
-
-    //indeks produk sesuai kategori
-    int[] filter = new int[Products.productCount];
-    int filterCount = 0;
-
-    for (int i = 0; i < Products.productCount; i++)
-    {
-        if (Products.category[i] == selected)
+        for (int i = 0; i < Products.productCount; i++)
         {
-            filter[filterCount] = i;
-            filterCount++;
-        }
-    }
+            bool sudahAda = false;
 
-    int itemsPerPage = 10;
-    int currentPage = 0;
-    int totalPage = (filterCount + itemsPerPage - 1) / itemsPerPage;
-
-    while (true)
-    {
-        Console.Clear();
-        Console.WriteLine($"=== Kategori: {selected} ===");
-
-        int start = currentPage * itemsPerPage;
-        int end = Math.Min(start + itemsPerPage, filterCount);
-
-        for (int i = start; i < end; i++)
-        {
-            int prodIdx = filter[i];
-            int nomorUrut = i - start;
-
-            Console.WriteLine($"{nomorUrut}. {Products.name[prodIdx]} - Rp{Products.price[prodIdx]:N0} | Stok {Products.stock[prodIdx]}");
-        }
-
-        Console.WriteLine($"Halaman {currentPage + 1}/{totalPage}");
-        Console.WriteLine("[<-/p] Prev  [->/n] Next  [0-9] Tambah ke keranjang  [ESC/q] Kembali");
-
-        var key = Console.ReadKey(true).Key;
-
-        if (key == ConsoleKey.RightArrow || key == ConsoleKey.N)
-        {
-            if (currentPage < totalPage - 1)
-                currentPage++;
-        }
-        else if (key == ConsoleKey.LeftArrow || key == ConsoleKey.P)
-        {
-            if (currentPage > 0)
-                currentPage--;
-        }
-        else if (key == ConsoleKey.Escape || key == ConsoleKey.Q)
-        {
-            break;
-        }
-        else if (key >= ConsoleKey.D0 && key <= ConsoleKey.D9)
-        {
-            char keyChar = (char)key;
-            string charString = keyChar.ToString();
-            int nomerKey = int.Parse(charString);
-
-            int input = start + nomerKey;
-
-            if (input >= start && input < end)
+            for (int j = 0; j < catUnique; j++)
             {
-                int id = filter[input];
-
-                Console.WriteLine();
-
-                while (true)
+                if (Products.category[i] == cat[j])
                 {
-                    Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
-                    int inputQty = int.Parse(Console.ReadLine()!);
-
-                    if (inputQty >= 1 && inputQty <= Products.stock[id])
-                    {
-                        Products.stock[id] = Products.stock[id] - inputQty;
-
-                        Console.WriteLine();
-                        Console.WriteLine($"Ditambahkan: {Products.name[id]}");
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Input tidak valid, masukkan angka 1-{Products.stock[id]}.");
-                    }
+                    sudahAda = true;
+                    break;
                 }
+            }
 
-                Console.WriteLine();
-                Console.WriteLine("Tekan tombol apa saja untuk lanjut...");
-                Console.ReadKey(true);
+            if (sudahAda == false)
+            {
+                cat[catUnique] = Products.category[i];
+                catUnique++;
             }
         }
-    }
-}
 
-
-    public static void search()
-    {
+        //kategori
         Console.Clear();
-        Console.WriteLine("Cari (nama/kategori):");
-        string keyword = Console.ReadLine() ?? "";
+        Console.WriteLine("=== Pilih Kategori ===");
 
-        if (string.IsNullOrWhiteSpace(keyword)) return;
+        for (int i = 0; i < catUnique; i++)
+        {
+            Console.WriteLine($"{i}. {cat[i]}");
+        }
+
+        Console.WriteLine("Pilih nomor: ");
+        int.TryParse(Console.ReadLine(), out int catChoice);
+
+        if (catChoice < 0 || catChoice >= catUnique)
+            return;
+
+        string selected = cat[catChoice];
+
+        //indeks produk sesuai kategori
         int[] filter = new int[Products.productCount];
         int filterCount = 0;
 
         for (int i = 0; i < Products.productCount; i++)
         {
-            if (Products.name[i].ToLower().Contains(keyword.ToLower()) || 
-            Products.category[i].ToLower().Contains(keyword.ToLower()))
+            if (Products.category[i] == selected)
             {
                 filter[filterCount] = i;
                 filterCount++;
             }
         }
 
-        if (filterCount == 0)
-        {
-            Console.WriteLine ("Tidak ditemukan");
-            Console.ReadLine();
-            return;
-        }
         int itemsPerPage = 10;
         int currentPage = 0;
         int totalPage = (filterCount + itemsPerPage - 1) / itemsPerPage;
@@ -200,26 +91,33 @@ public static void byCategory()
         while (true)
         {
             Console.Clear();
-            Console.WriteLine ($"=== Hasil cari: {keyword} ===");
+            Console.WriteLine($"=== Kategori: {selected} ===");
+
             int start = currentPage * itemsPerPage;
             int end = Math.Min(start + itemsPerPage, filterCount);
 
             for (int i = start; i < end; i++)
             {
-              int prodIdx = filter[i];
-              int nomorUrut = i - start;
-              Console.WriteLine ($"{nomorUrut}. {Products.name[prodIdx]} - Rp{Products.price[prodIdx]:N0} | Stok {Products.stock[prodIdx]}");
+                int prodIdx = filter[i];
+                int nomorUrut = i - start;
+
+                Console.WriteLine($"{nomorUrut}. {Products.name[prodIdx]} - Rp{Products.price[prodIdx]:N0} | Stok {Products.stock[prodIdx]}");
             }
+
             Console.WriteLine($"Halaman {currentPage + 1}/{totalPage}");
             Console.WriteLine("[<-/p] Prev  [->/n] Next  [0-9] Tambah ke keranjang  [ESC/q] Kembali");
+
             var key = Console.ReadKey(true).Key;
+
             if (key == ConsoleKey.RightArrow || key == ConsoleKey.N)
             {
-                if(currentPage < totalPage - 1) currentPage++;
+                if (currentPage < totalPage - 1)
+                    currentPage++;
             }
             else if (key == ConsoleKey.LeftArrow || key == ConsoleKey.P)
             {
-                if(currentPage > 0) currentPage--;
+                if (currentPage > 0)
+                    currentPage--;
             }
             else if (key == ConsoleKey.Escape || key == ConsoleKey.Q)
             {
@@ -233,106 +131,22 @@ public static void byCategory()
 
                 int input = start + nomerKey;
 
-                if (input >= start && input <= end)
+                if (input >= start && input < end)
                 {
                     int id = filter[input];
+
                     Console.WriteLine();
-                    while (true)
-                    {   
-                        Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
-                        int inputQty = int.Parse(Console.ReadLine()!);
-                        if (inputQty >= 1 && inputQty <= Products.stock[id])
-                        {
-                            Products.stock[id] = Products.stock[id] - inputQty;
-                            Console.WriteLine();
-                            //menunggu fitur cart
-                            Console.WriteLine($"Ditambahkan: {Products.name[id]}");
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Input tidak valid, masukkan angka 1-{Products.stock[id]}.");
-                        }
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine ("Tekan tombol apa saja untuk lanjut...");
-                    Console.ReadKey(true);
-                }
-                
-            }
-        }
-        
 
-    }
-    // Menu Nomer 1
-    public static void menuProduct()
-    {
-        int itemsPerPage = 10;
-        int currentPage = 0;
-        int totalPage = (Products.productCount + itemsPerPage - 1) / itemsPerPage;
-
-        while (true)
-        {
-
-            Console.Clear();
-            Console.WriteLine("=== KATALOG PRODUK ====");
-            int start = currentPage * itemsPerPage;
-            int end = Math.Min(start + itemsPerPage, Products.productCount);
-            
-            int nomer = 0;
-            for (int i = start; i < end; i++)
-            {
-                string rupiah = $"Rp{Products.price[i]:N0}";             
-                Console.WriteLine ($"{nomer}. {Products.name[i]} - {rupiah} | stok {Products.stock[i]} | {Products.category[i]}");
-                nomer++;
-            } 
-
-            Console.WriteLine($"Halaman {currentPage + 1}/{totalPage}");
-            Console.WriteLine("[<-/p] Prev  [->/n] Next  [0-9] Tambah ke keranjang  [ESC/q] Kembali");
-
-
-            var key = Console.ReadKey(true).Key;
-            if (key == ConsoleKey.RightArrow || key == ConsoleKey.N)
-            {
-                if(currentPage < totalPage - 1) currentPage++;
-            }
-            else if (key == ConsoleKey.LeftArrow || key == ConsoleKey.P)
-            {
-                if(currentPage > 0) currentPage--;
-            }
-            else if (key == ConsoleKey.Escape || key == ConsoleKey.Q)
-            {
-                break;
-            }
-            else if (key >= ConsoleKey.D0 && key <= ConsoleKey.D9)
-            {
-                // int id = (int)(key-ConsoleKey.D0);
-                //  nomer n = start + nomer ke-n - 1
-                // (char)key = 'A' / '1'
-                // char -> integer === char -> string -> integer
-                // ((char)key).toString() 
-                // int.Parse(string)
-                char keyChar = (char)key;
-                string charString = keyChar.ToString();
-                int nomerKey = int.Parse(charString);
-
-                int id = start + nomerKey;
-
-                if (id >= start && id <= end)
-                {
-                    Console.WriteLine();
                     while (true)
                     {
-
-
                         Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
-                        int inputQty = int.TryParse(Console.ReadLine(), out int qty) ? qty : 0;
+                        int inputQty = int.Parse(Console.ReadLine()!);
+
                         if (inputQty >= 1 && inputQty <= Products.stock[id])
                         {
                             Products.stock[id] = Products.stock[id] - inputQty;
+
                             Console.WriteLine();
-                            
-                            Cart.AddToCart(Products.productId[id], inputQty);
                             Console.WriteLine($"Ditambahkan: {Products.name[id]}");
                             break;
                         }
@@ -341,12 +155,212 @@ public static void byCategory()
                             Console.WriteLine($"Input tidak valid, masukkan angka 1-{Products.stock[id]}.");
                         }
                     }
+
                     Console.WriteLine();
-                    Console.WriteLine ("Tekan tombol apa saja untuk lanjut...");
+                    Console.WriteLine("Tekan tombol apa saja untuk lanjut...");
                     Console.ReadKey(true);
-                } 
+                }
             }
         }
-    }   
-    
-}    
+    }
+
+
+        public static void search()
+        {
+            Console.Clear();
+            Console.WriteLine("Cari (nama/kategori):");
+            string keyword = Console.ReadLine() ?? "";
+
+            if (string.IsNullOrWhiteSpace(keyword)) return;
+            int[] filter = new int[Products.productCount];
+            int filterCount = 0;
+
+            for (int i = 0; i < Products.productCount; i++)
+            {
+                if (Products.name[i].ToLower().Contains(keyword.ToLower()) || 
+                Products.category[i].ToLower().Contains(keyword.ToLower()))
+                {
+                    filter[filterCount] = i;
+                    filterCount++;
+                }
+            }
+
+            if (filterCount == 0)
+            {
+                Console.WriteLine ("Tidak ditemukan");
+                Console.ReadLine();
+                return;
+            }
+            int itemsPerPage = 10;
+            int currentPage = 0;
+            int totalPage = (filterCount + itemsPerPage - 1) / itemsPerPage;
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine ($"=== Hasil cari: {keyword} ===");
+                int start = currentPage * itemsPerPage;
+                int end = Math.Min(start + itemsPerPage, filterCount);
+
+                for (int i = start; i < end; i++)
+                {
+                int prodIdx = filter[i];
+                int nomorUrut = i - start;
+                Console.WriteLine ($"{nomorUrut}. {Products.name[prodIdx]} - Rp{Products.price[prodIdx]:N0} | Stok {Products.stock[prodIdx]}");
+                }
+                Console.WriteLine($"Halaman {currentPage + 1}/{totalPage}");
+                Console.WriteLine("[<-/p] Prev  [->/n] Next  [0-9] Tambah ke keranjang  [ESC/q] Kembali");
+                var key = Console.ReadKey(true).Key;
+                if (key == ConsoleKey.RightArrow || key == ConsoleKey.N)
+                {
+                    if(currentPage < totalPage - 1) currentPage++;
+                }
+                else if (key == ConsoleKey.LeftArrow || key == ConsoleKey.P)
+                {
+                    if(currentPage > 0) currentPage--;
+                }
+                else if (key == ConsoleKey.Escape || key == ConsoleKey.Q)
+                {
+                    break;
+                }
+                else if (key >= ConsoleKey.D0 && key <= ConsoleKey.D9)
+                {
+                    char keyChar = (char)key;
+                    string charString = keyChar.ToString();
+                    int nomerKey = int.Parse(charString);
+
+                    int input = start + nomerKey;
+
+                    if (input >= start && input <= end)
+                    {
+                        int id = filter[input];
+                        Console.WriteLine();
+                        while (true)
+                        {   
+                            Console.Write($"Qty untuk {Products.name[id]} stok {Products.stock[id]}: ");
+                            int inputQty = int.Parse(Console.ReadLine()!);
+                            if (inputQty >= 1 && inputQty <= Products.stock[id])
+                            {
+                                Products.stock[id] = Products.stock[id] - inputQty;
+                                Console.WriteLine();
+                                //menunggu fitur cart
+                                Console.WriteLine($"Ditambahkan: {Products.name[id]}");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Input tidak valid, masukkan angka 1-{Products.stock[id]}.");
+                            }
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine ("Tekan tombol apa saja untuk lanjut...");
+                        Console.ReadKey(true);
+                    }
+                    
+                }
+            }
+            
+
+        }
+        public static void menuProduct()
+        {
+            int[] urutan = new int[Products.productCount];
+            for (int i = 0; i < Products.productCount; i++) // Mengatur putaran sorting
+            {
+                urutan[i] = i;
+            }
+            for (int i = 0; i < Products.productCount - 1; i++)
+            {
+                for (int j = 0; j < Products.productCount - 1 - i; j++) // Membandingkan dua produk yang bersebelahan
+                {
+                    if (string.Compare(Products.name[urutan[j]], Products.name[urutan[j + 1]]) > 0)
+                    {
+                        int temp = urutan[j];
+                        urutan[j] = urutan[j + 1];
+                        urutan[j + 1] = temp;
+                    }
+                }
+            }
+            
+            int itemsPerPage = 10;
+            int currentPage = 0;
+            int totalPage = (Products.productCount + itemsPerPage - 1) / itemsPerPage;
+
+            while (true)
+            {
+
+                Console.Clear();
+                Console.WriteLine("=== KATALOG PRODUK ====");
+                int start = currentPage * itemsPerPage;
+                int end = Math.Min(start + itemsPerPage, Products.productCount);
+                
+                int nomor = 0;
+                for (int i = start; i < end; i++)
+                {
+                    string rupiah = $"Rp{Products.price[urutan[i]]:N0}";             
+                    Console.WriteLine ($"{nomor}. {Products.name[urutan[i]]} - {rupiah} | stok {Products.stock[urutan[i]]} | {Products.category[urutan[i]]}");
+                    nomor++;
+                } 
+
+                Console.WriteLine($"Halaman {currentPage + 1}/{totalPage}");
+                Console.WriteLine("[<-/p] Prev  [->/n] Next  [0-9] Tambah ke keranjang  [ESC/q] Kembali");
+
+
+                var key = Console.ReadKey(true).Key;
+                if (key == ConsoleKey.RightArrow || key == ConsoleKey.N)
+                {
+                    if(currentPage < totalPage - 1) currentPage++;
+                }
+                else if (key == ConsoleKey.LeftArrow || key == ConsoleKey.P)
+                {
+                    if(currentPage > 0) currentPage--;
+                }
+                else if (key == ConsoleKey.Escape || key == ConsoleKey.Q)
+                {
+                    break;
+                }
+                else if (key >= ConsoleKey.D0 && key <= ConsoleKey.D9)
+                {
+                    // int id = (int)(key-ConsoleKey.D0);
+                    // index tampilan = start + nomerKey
+                    // (char)key = 'A' / '1'
+                    // char -> integer === char -> string -> integer
+                    // ((char)key).toString() 
+                    // int.Parse(string)
+                    char keyChar = (char)key;
+                    string charString = keyChar.ToString();
+                    int nomerKey = int.Parse(charString);
+
+                    if (nomerKey >= 0 && nomerKey < end - start)
+                    {
+                        int indexProduk = urutan[start + nomerKey];
+                        Console.WriteLine();
+                        while (true)
+                        {
+
+
+                            Console.Write($"Qty untuk {Products.name[indexProduk]} stok {Products.stock[indexProduk]}: ");
+                            int inputQty = int.TryParse(Console.ReadLine(), out int qty) ? qty : 0;
+                            if (inputQty >= 1 && inputQty <= Products.stock[indexProduk])
+                            {
+                                Products.stock[indexProduk] = Products.stock[indexProduk] - inputQty;
+                                Console.WriteLine();
+                                
+                                Cart.AddToCart(Products.productId[indexProduk], inputQty);
+                                Console.WriteLine($"Ditambahkan: {Products.name[indexProduk]}");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Input tidak valid, masukkan angka 1-{Products.stock[indexProduk]}.");
+                            }
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine ("Tekan tombol apa saja untuk lanjut...");
+                        Console.ReadKey(true);
+                    } 
+                }
+            }
+        }   
+        
+    }    

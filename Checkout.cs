@@ -1,6 +1,28 @@
+using System.IO;
 class Checkout
 {
-    public static int trxId = 1;
+    const string TRX_ID_FILE = "last_trx_id.txt";
+    public static int GetNextTrxId()
+    {
+        if (File.Exists(TRX_ID_FILE))
+        {
+            string lastId = File.ReadAllText(TRX_ID_FILE);
+
+            if (int.TryParse(lastId, out int trxId))
+            {
+                return trxId + 1;
+            }
+        }
+
+    return 1;
+    }
+
+    public static void SaveLastTrxId(int trxId)
+    {
+        File.WriteAllText(TRX_ID_FILE, trxId.ToString());
+    }
+     
+    
 
     public static void Process ()
     {
@@ -73,6 +95,7 @@ class Checkout
 
         if (pilih == 1)
         {
+            int trxId = GetNextTrxId();
             Console.WriteLine ("Pembayaran dilanjutkan");
             for (int i = 0; i < Cart.cartCount; i++)
             {
@@ -92,8 +115,9 @@ class Checkout
                         totalPrice                         // trxTotal
                     );
             }
-            trxId++;       
+            SaveLastTrxId(trxId);
             Cart.cartCount = 0;
+            Console.WriteLine($"ID Transaksi : TRX{trxId:D3}");
             Console.WriteLine("Checkout berhasil dilakukan!");
             Console.ReadLine();
         }

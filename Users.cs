@@ -9,7 +9,7 @@ class Users {
     public static int userCount = 0;
 
     public static string sessionRole = "";
-    public static int sessionUserId = -1;
+    public static int sessionUserId = Constant.KOSONG;
 
     public static void _saveUser(int _userId, string _userName, string _password, string _role)
     {
@@ -43,7 +43,7 @@ class Users {
             }
 
         }
-        return -1;
+        return Constant.KOSONG;
     }
 
     static string getReadLine(string title, bool clearScreen = false)
@@ -71,7 +71,7 @@ class Users {
     public static void Login()
     {
         sessionRole = "";
-        int foundIndex = -1;
+        int foundIndex = Constant.KOSONG;
         while (sessionRole == "")
         {
             Console.Clear();

@@ -42,6 +42,6 @@ class Transaction {
             }
 
         }
-        return -1;
+        return Constant.KOSONG;
     }
 }

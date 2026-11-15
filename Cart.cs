@@ -7,9 +7,21 @@ class Cart
     public static int cartCount = 0;
     public static void AddToCart(int id, int qty)
     {
-        productId[cartCount] = id;
-        productQty[cartCount] = qty;
-        cartCount++;
+        bool isExist = false;
+        for (int i = 0; i < cartCount; i++)
+        {
+            if (productId[i] == id)
+            {
+                isExist = true;
+                productQty[i] += qty;
+            }
+        }
+        if (!isExist)
+        {
+            productId[cartCount] = id;
+            productQty[cartCount] = qty;
+            cartCount++;
+        }
     }
 
     public static void List()
@@ -68,6 +80,8 @@ class Cart
     {
         for (int i = index; i < cartCount; i++)
         {
+            int findIndex = Products.getIndexProductByID(productId[i]);
+            if(findIndex != Constant.KOSONG ) Products.stock[findIndex] += (int)productQty[i];
             productId[i] = productId[i + 1];
             productQty[i] = productQty[i + 1];
         }

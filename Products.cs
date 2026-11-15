@@ -53,7 +53,7 @@ class Products {
             }
 
         }
-        return -1;
+        return Constant.KOSONG;
     }
 
     public static void menuProduct()

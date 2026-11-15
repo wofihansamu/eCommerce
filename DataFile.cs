@@ -38,22 +38,33 @@ public static class DataFile
 
     public static void LoadAllData()
     {
-        if (loadData(Constant.FILE_USERS, kolomUser) == Constant.KOSONG)
+        Users.userCount = loadData(Constant.FILE_USERS, kolomUser);
+        if (Users.userCount == Constant.KOSONG)
         {
+            Users.userCount = 0;
             Users.seedData();
             saveData(Constant.FILE_USERS, kolomUser, Users.userCount);
         }
-        if (loadData(Constant.FILE_PRODUCTS, kolomProduct) == Constant.KOSONG)
+
+        Products.productCount = loadData(Constant.FILE_PRODUCTS, kolomProduct);
+        if (Products.productCount == Constant.KOSONG)
         {
+            Products.productCount = 0;
             Products.seedData();
             saveData(Constant.FILE_PRODUCTS, kolomProduct, Products.productCount);
         }
-        if (loadData(Constant.FILE_TRANSACTION, kolomTransaction) == Constant.KOSONG)
+
+        Transaction.transactionCount = loadData(Constant.FILE_TRANSACTION, kolomTransaction);
+        if (Transaction.transactionCount == Constant.KOSONG)
         {
+            Transaction.transactionCount = 0;
             saveData(Constant.FILE_TRANSACTION, kolomTransaction, Transaction.transactionCount);
         }
-        if (loadData(Constant.FILE_CART, kolomCart) == Constant.KOSONG)
+
+        Cart.cartCount = loadData(Constant.FILE_CART, kolomCart);
+        if (Cart.cartCount == Constant.KOSONG)
         {
+            Cart.cartCount = 0;
             saveData(Constant.FILE_CART, kolomCart, Cart.cartCount);
         }
 
@@ -80,7 +91,6 @@ public static class DataFile
     public static void lineToPararel(string line, Array[] kolom, int index)
     {
         string[] parts = line.Split(',');
-
         for (int i = 0; i < kolom.Length && i < parts.Length; i++)
         {
             Type elementType = kolom[i].GetType().GetElementType();
@@ -89,6 +99,7 @@ public static class DataFile
 
             kolom[i].SetValue(convertedValue, index);
         }
+        
     }
 
     public static void saveData(string namaFile, Array[] kolom, int count)

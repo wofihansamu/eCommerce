@@ -37,7 +37,7 @@ class Users {
         {
             for (int i = 0; i < userCount; i++)
             {
-                if (userName[i] == name)
+                if (userName[i].ToLower().Trim() == name.ToLower().Trim())
                 {
                     return i;
                 }
@@ -81,12 +81,15 @@ class Users {
             string userName = getReadLine("Masukkan User Name : ");
             string password = getReadLine("Masukkan Password : ");
             foundIndex = getIndexUserByName(userName);
+    
             if (foundIndex >= 0 && userPassword[foundIndex] == password)
             {
                 break;
             }
             else
             {
+                Console.WriteLine(foundIndex);
+                Console.WriteLine(DataFile.pararelToLine(DataFile.kolomUser, 2));
                 Console.WriteLine("User atau Password salah!");
                 loginFail++;
                 Console.ReadLine();

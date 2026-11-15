@@ -1,7 +1,20 @@
 class Checkout
 {
-    public static int trxId = 1;
+    
+    public static int GetNextTrxId()
+    {
+        int lastTrxId = 0;
+        for (int i = 0; i < Transaction.transactionCount; i++)
+            {
+                if (Transaction.transactionId[i] > lastTrxId)
+                {
+                    lastTrxId = Transaction.transactionId[i];
+                }
+            }
 
+        return lastTrxId + 1;
+    }
+    
     public static void Process ()
     {
         double totalBelanja = 0;
@@ -73,6 +86,7 @@ class Checkout
 
         if (pilih == 1)
         {
+            int trxId = GetNextTrxId();
             Console.WriteLine ("Pembayaran dilanjutkan");
             for (int i = 0; i < Cart.cartCount; i++)
             {
@@ -92,8 +106,8 @@ class Checkout
                         totalPrice                         // trxTotal
                     );
             }
-            trxId++;       
             Cart.cartCount = 0;
+            Console.WriteLine($"ID Transaksi : TRX{trxId:D3}");
             Console.WriteLine("Checkout berhasil dilakukan!");
             Console.ReadLine();
         }

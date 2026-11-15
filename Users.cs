@@ -1,6 +1,7 @@
 class Users {
     // GOkd
     const int MAX_USER_COUNT = 100;
+    const int MAX_LOGIN_FAIL = 3;
     public static int[] userId = new int[MAX_USER_COUNT];
     public static string[] userName = new string[MAX_USER_COUNT];
     public static string[] userPassword = new string[MAX_USER_COUNT];
@@ -72,6 +73,7 @@ class Users {
     {
         sessionRole = "";
         int foundIndex = Constant.KOSONG;
+        int loginFail = 0;
         while (sessionRole == "")
         {
             Console.Clear();
@@ -86,7 +88,12 @@ class Users {
             else
             {
                 Console.WriteLine("User atau Password salah!");
+                loginFail++;
                 Console.ReadLine();
+            }
+            if (loginFail >= MAX_LOGIN_FAIL)
+            {
+                Program.MenuAwal();
             }
         }
         sessionRole = role[foundIndex];
@@ -120,10 +127,5 @@ class Users {
             Console.WriteLine("Role Tidak tersedia ! Silakan coba lagi.");
             Console.ReadLine();
         }
-    }
-    
-    public static void daftarUser()
-    {
-        
     }
 }

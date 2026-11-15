@@ -2,6 +2,7 @@ class Cart
 {
     const int MAX_CART_COUNT = 100;
 
+    public static int[] userId = new int[MAX_CART_COUNT];
     public static int[] productId = new int[MAX_CART_COUNT];
     public static double[] productQty = new double[MAX_CART_COUNT];
     public static int cartCount = 0;
@@ -18,6 +19,7 @@ class Cart
         }
         if (!isExist)
         {
+            userId[cartCount] = Users.sessionUserId;
             productId[cartCount] = id;
             productQty[cartCount] = qty;
             cartCount++;
@@ -33,12 +35,15 @@ class Cart
         {
             for (int i = 0; i < cartCount; i++)
             {
-                int productIndex = Products.getIndexProductByID(productId[i]);
-                double totalPrice = productQty[i] * Products.price[productIndex];
-                subTotal += totalPrice;
-                Console.WriteLine($" {i + 1}. {Products.name[productIndex]}");
-                Console.WriteLine($" Qty {productQty[i]:N2} @ {Products.price[productIndex]:N0} = {totalPrice:N0}");
-                Console.WriteLine();
+                if (userId[i] == Users.sessionUserId)
+                {
+                    int productIndex = Products.getIndexProductByID(productId[i]);
+                    double totalPrice = productQty[i] * Products.price[productIndex];
+                    subTotal += totalPrice;
+                    Console.WriteLine($" {i + 1}. {Products.name[productIndex]}");
+                    Console.WriteLine($" Qty {productQty[i]:N2} @ {Products.price[productIndex]:N0} = {totalPrice:N0}");
+                    Console.WriteLine();
+                }
             }
             Console.WriteLine($" == TOTAL BELANJA : {subTotal:N0} ==");
             Console.WriteLine(":: Pilih Nomer Barang untuk ubah Qty atau hapus ::");

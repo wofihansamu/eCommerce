@@ -1,29 +1,20 @@
-using System.IO;
 class Checkout
 {
-    const string TRX_ID_FILE = "last_trx_id.txt";
+    
     public static int GetNextTrxId()
     {
-        if (File.Exists(TRX_ID_FILE))
-        {
-            string lastId = File.ReadAllText(TRX_ID_FILE);
-
-            if (int.TryParse(lastId, out int trxId))
+        int lastTrxId = 0;
+        for (int i = 0; i < Transaction.transactionCount; i++)
             {
-                return trxId + 1;
+                if (Transaction.transactionId[i] > lastTrxId)
+                {
+                    lastTrxId = Transaction.transactionId[i];
+                }
             }
-        }
 
-    return 1;
+        return lastTrxId + 1;
     }
-
-    public static void SaveLastTrxId(int trxId)
-    {
-        File.WriteAllText(TRX_ID_FILE, trxId.ToString());
-    }
-     
     
-
     public static void Process ()
     {
         double totalBelanja = 0;
@@ -115,7 +106,6 @@ class Checkout
                         totalPrice                         // trxTotal
                     );
             }
-            SaveLastTrxId(trxId);
             Cart.cartCount = 0;
             Console.WriteLine($"ID Transaksi : TRX{trxId:D3}");
             Console.WriteLine("Checkout berhasil dilakukan!");

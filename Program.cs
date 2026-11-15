@@ -4,8 +4,6 @@
     public static string lines35 = new String('=',35);
     static void Main(string[] args)
     {
-        Products.seedData();
-        Users.seedData();
         if (!Directory.Exists(Constant.DIR_DATA))
         {
             Directory.CreateDirectory(Constant.DIR_DATA);

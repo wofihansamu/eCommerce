@@ -38,10 +38,24 @@ public static class DataFile
 
     public static void LoadAllData()
     {
-        if (loadData(Constant.FILE_USERS, kolomUser) == Constant.KOSONG) saveData(Constant.FILE_USERS, kolomUser, Users.userCount);
-        if (loadData(Constant.FILE_PRODUCTS, kolomProduct) == Constant.KOSONG) saveData(Constant.FILE_PRODUCTS, kolomProduct, Products.productCount);
-        if (loadData(Constant.FILE_TRANSACTION, kolomTransaction) == Constant.KOSONG) saveData(Constant.FILE_TRANSACTION, kolomTransaction, Transaction.transactionCount);
-        if (loadData(Constant.FILE_CART, kolomCart) == Constant.KOSONG) saveData(Constant.FILE_CART, kolomCart, Cart.cartCount);
+        if (loadData(Constant.FILE_USERS, kolomUser) == Constant.KOSONG)
+        {
+            Users.seedData();
+            saveData(Constant.FILE_USERS, kolomUser, Users.userCount);
+        }
+        if (loadData(Constant.FILE_PRODUCTS, kolomProduct) == Constant.KOSONG)
+        {
+            Products.seedData();
+            saveData(Constant.FILE_PRODUCTS, kolomProduct, Products.productCount);
+        }
+        if (loadData(Constant.FILE_TRANSACTION, kolomTransaction) == Constant.KOSONG)
+        {
+            saveData(Constant.FILE_TRANSACTION, kolomTransaction, Transaction.transactionCount);
+        }
+        if (loadData(Constant.FILE_CART, kolomCart) == Constant.KOSONG)
+        {
+            saveData(Constant.FILE_CART, kolomCart, Cart.cartCount);
+        }
 
     }
 

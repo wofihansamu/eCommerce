@@ -4,14 +4,18 @@
     public static string lines35 = new String('=',35);
     static void Main(string[] args)
     {
-        Products.seedData();
-        Users.seedData();
+        if (!Directory.Exists(Constant.DIR_DATA))
+        {
+            Directory.CreateDirectory(Constant.DIR_DATA);
+        }
+        DataFile.LoadAllData();
         while (true) {
             MenuAwal();
         }
     }
 
     public static void MenuAwal(){
+        DataFile.SaveAllData();
         Console.Clear();
         Console.WriteLine("=== Menu Awal ===");
         Console.WriteLine(lines35);
@@ -40,6 +44,7 @@
     }
 
     public static void MenuUtama(){
+        DataFile.SaveAllData();
         while (true)
         {
             Console.Clear();

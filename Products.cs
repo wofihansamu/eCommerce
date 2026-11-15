@@ -14,31 +14,31 @@ class Products {
 
     public static void seedData()
     {
-        _addProd(1, "Sepatu Kets", 18000, 20000, "Sepatu", 10);
-        _addProd(2, "Baju Formal L", 17000, 25000, "Baju", 5);
-        _addProd(3, "Topi Petani", 14000, 15000, "Topi", 20);
-        _addProd(4, "Jazz", 80000, 100000, "Baju", 16);
-        _addProd(5, "Jam Tangan 24x1", 150000, 200000, "Accesoris", 5);
-        _addProd(6, "Kacamata Hitam", 25000, 35000, "Aksesoris", 15);
-        _addProd(7, "Celana Jeans Pria", 85000, 120000, "Celana", 12);
-        _addProd(8, "Kaos Polos Putih", 20000, 30000, "Baju", 50);
-        _addProd(9, "Sepatu Pantofel", 120000, 150000, "Sepatu", 8);
-        _addProd(10, "Tas Ransel Kanvas", 65000, 90000, "Tas", 25);
-        _addProd(11, "Ikat Pinggang Kulit", 45000, 60000, "Aksesoris", 30);
-        _addProd(12, "Topi Baseball", 15000, 25000, "Topi", 40);
-        _addProd(13, "Kemeja Flanel", 55000, 85000, "Baju", 18);
-        _addProd(14, "Dompet Pria", 40000, 75000, "Aksesoris", 22);
-        _addProd(15, "Celana Chino", 70000, 95000, "Celana", 14);
-        _addProd(16, "Jaket Denim", 110000, 160000, "Baju", 10);
-        _addProd(17, "Sepatu Running", 140000, 190000, "Sepatu", 15);
-        _addProd(18, "Gelang Tangan", 5000, 15000, "Aksesoris", 100);
-        _addProd(19, "Sandal Gunung", 45000, 65000, "Sepatu", 20);
-        _addProd(20, "Jas Hujan Motor", 35000, 50000, "Aksesoris", 25);
-        _addProd(21, "Batik Lengan Pendek", 60000, 90000, "Baju", 15);
-        _addProd(22, "Celana Pendek Santai", 25000, 40000, "Celana", 35);
-        _addProd(23, "Tas Selempang", 35000, 55000, "Tas", 18);
-        _addProd(24, "Kupluk Rajut", 12000, 20000, "Topi", 25);
-        _addProd(25, "Sepatu Boots Kulit", 180000, 250000, "Sepatu", 5);
+        _addProd("Sepatu Kets", 18000, 20000, "Sepatu", 10);
+        _addProd("Baju Formal L", 17000, 25000, "Baju", 5);
+        _addProd("Topi Petani", 14000, 15000, "Topi", 20);
+        _addProd("Jazz", 80000, 100000, "Baju", 16);
+        _addProd("Jam Tangan 24x1", 150000, 200000, "Accesoris", 5);
+        _addProd("Kacamata Hitam", 25000, 35000, "Aksesoris", 15);
+        _addProd("Celana Jeans Pria", 85000, 120000, "Celana", 12);
+        _addProd("Kaos Polos Putih", 20000, 30000, "Baju", 50);
+        _addProd("Sepatu Pantofel", 120000, 150000, "Sepatu", 8);
+        _addProd("Tas Ransel Kanvas", 65000, 90000, "Tas", 25);
+        _addProd("Ikat Pinggang Kulit", 45000, 60000, "Aksesoris", 30);
+        _addProd("Topi Baseball", 15000, 25000, "Topi", 40);
+        _addProd("Kemeja Flanel", 55000, 85000, "Baju", 18);
+        _addProd("Dompet Pria", 40000, 75000, "Aksesoris", 22);
+        _addProd("Celana Chino", 70000, 95000, "Celana", 14);
+        _addProd("Jaket Denim", 110000, 160000, "Baju", 10);
+        _addProd("Sepatu Running", 140000, 190000, "Sepatu", 15);
+        _addProd("Gelang Tangan", 5000, 15000, "Aksesoris", 100);
+        _addProd( "Sandal Gunung", 45000, 65000, "Sepatu", 20);
+        _addProd("Jas Hujan Motor", 35000, 50000, "Aksesoris", 25);
+        _addProd("Batik Lengan Pendek", 60000, 90000, "Baju", 15);
+        _addProd("Celana Pendek Santai", 25000, 40000, "Celana", 35);
+        _addProd("Tas Selempang", 35000, 55000, "Tas", 18);
+        _addProd("Kupluk Rajut", 12000, 20000, "Topi", 25);
+        _addProd("Sepatu Boots Kulit", 180000, 250000, "Sepatu", 5);
     }
     public static int getIndexProductByID(int id)
     {
@@ -119,9 +119,9 @@ class Products {
         }
     }
 
-    static void _addProd(int _id, string _name, double _cost, double _price, string _kategori, int _stock=0)
+    static void _addProd(string _name, double _cost, double _price, string _kategori, int _stock=0)
     {
-        productId[productCount] = _id;
+        productId[productCount] = productId[productCount-1]+1;
         name[productCount] = _name;
         cost[productCount] = _cost;
         price[productCount] = _price;
@@ -140,16 +140,6 @@ class Products {
         }
         else
         {
-            Console.WriteLine("Enter Product ID : ");
-            int.TryParse(Console.ReadLine(), out int prodId);
-            int isExist = getIndexProductByID(prodId);
-            if (isExist >= 0)
-            {
-                Console.WriteLine("Produk ID sudah ada!!");
-                Console.ReadLine();
-            }
-            else
-            {
                 Console.WriteLine("Enter Product Name : ");
                 string inp_name = Console.ReadLine() ?? "";
                 Console.WriteLine("Enter Product Cost : ");
@@ -160,10 +150,9 @@ class Products {
                 string inp_kategori = Console.ReadLine() ?? "";
                 Console.WriteLine("Enter Product Stock : ");
                 int inp_stock = int.TryParse(Console.ReadLine(), out int st) ? st : 0;
-                _addProd(prodId, inp_name, inp_cost, inp_price, inp_kategori, inp_stock);
+                _addProd(inp_name, inp_cost, inp_price, inp_kategori, inp_stock);
                 Console.WriteLine("=== Produk berhasil ditambahkan ! ===");
                 Console.ReadLine();
-            }
         }
     }
 

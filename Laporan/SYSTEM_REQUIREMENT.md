@@ -9,13 +9,14 @@ Dokumen ini memeriksa apakah setiap **requirement teknis** yang diwajibkan sudah
 | 1 | Three parallel arrays | ✅ Sudah | `Users`, `Products`, `Cart`, `Transaction` |
 | 2 | One jagged array | ❌ Belum | — |
 | 3 | One two-dimensional array | ❌ Belum | — |
-| 4 | Linear or Binary search | ✅ Sudah | `Users.getIndexUserByName`, `Products.getIndexProductByID`, dst. |
-| 5 | One hand-written sort | ✅ Sudah | `Catalog.menuProduct` (bubble sort) |
-| 6 | Two text files | ✅ Sudah | `Constant.cs` (4 file `.txt`) |
-| 7 | Twelve or more methods | ✅ Sudah | 37 method (lihat `FUNGSI.md`) |
-| 8 | Three exception types | ✅ Sudah | `DataFile.cs`, `Products.cs` (7+ jenis exception) |
+| 4 | Linear search | ✅ Sudah | `Users.getIndexUserByName`, `Products.getIndexProductByID`, dst. |
+| 5 | Binary search | ✅ Sudah | `Products.BinSearch` (`Products.cs:44-66`) |
+| 6 | One hand-written sort | ✅ Sudah | `Catalog.menuProduct` (bubble sort) |
+| 7 | Two text files | ✅ Sudah | `Constant.cs` (4 file `.txt`) |
+| 8 | Twelve or more methods | ✅ Sudah | 37 method (lihat `FUNGSI.md`) |
+| 9 | Three exception types | ✅ Sudah | `DataFile.cs`, `Products.cs` (7+ jenis exception) |
 
-**Total: 7 dari 8 requirement sudah terpenuhi.**
+**Total: 8 dari 9 requirement sudah terpenuhi.**
 
 ---
 
@@ -48,9 +49,9 @@ Belum ada deklarasi array **dua dimensi persegi panjang** (`int[,]`, `string[,]`
 
 ---
 
-## 4. Linear or Binary Search — ✅ Sudah
+## 4. Linear Search — ✅ Sudah
 
-Requirement ini terpenuhi melalui **linear search** (salah satu dari linear/binary search sudah cukup). Pencarian sekuensial diimplementasikan pada beberapa method berikut:
+Pencarian sekuensial (linear) diimplementasikan pada beberapa method berikut:
 
 | Method | File & Baris | Keterangan |
 |--------|--------------|------------|
@@ -63,7 +64,18 @@ Requirement ini terpenuhi melalui **linear search** (salah satu dari linear/bina
 
 ---
 
-## 5. One Hand-Written Sort — ✅ Sudah
+## 5. Binary Search — ✅ Sudah
+
+Pencarian biner diimplementasikan pada method `Products.BinSearch` dan dipakai oleh `Products.getIndexProductByID`.
+
+| Method | File & Baris | Keterangan |
+|--------|--------------|------------|
+| `Products.BinSearch` | `Products.cs:44-66` | Binary search pada array terurut `productId`, mengembalikan indeks atau `Constant.KOSONG` (-1). |
+| `Products.getIndexProductByID` | `Products.cs:68-83` | Memanggil `BinSearch(productId, id, productCount)` untuk mencari produk berdasarkan ID. |
+
+---
+
+## 6. One Hand-Written Sort — ✅ Sudah
 
 Sorting yang ditulis tangan (bukan memakai `Array.Sort`) berupa **bubble sort** diimplementasikan pada:
 
@@ -73,7 +85,7 @@ Sorting yang ditulis tangan (bukan memakai `Array.Sort`) berupa **bubble sort** 
 
 ---
 
-## 6. Two Text Files — ✅ Sudah
+## 7. Two Text Files — ✅ Sudah
 
 Program membaca dan menulis **4 file teks** (lebih dari cukup memenuhi minimal 2 file). Path file dideklarasikan di `Constant.cs:5-8`.
 
@@ -88,7 +100,7 @@ File-file tersebut dibaca via `DataFile.loadData` dan ditulis via `DataFile.save
 
 ---
 
-## 7. Twelve or More Methods — ✅ Sudah
+## 8. Twelve or More Methods — ✅ Sudah
 
 Terpenuhi. Total terdapat **37 method** di seluruh class (lihat `FUNGSI.md` untuk rincian lengkap).
 
@@ -106,7 +118,7 @@ Terpenuhi. Total terdapat **37 method** di seluruh class (lihat `FUNGSI.md` untu
 
 ---
 
-## 8. Three Exception Types — ✅ Sudah
+## 9. Three Exception Types — ✅ Sudah
 
 Penanganan **exception** sudah diimplementasikan menggunakan `try/catch` dengan lebih dari tiga jenis exception yang berbeda, tersebar di `DataFile.cs` dan `Products.cs`.
 
@@ -129,9 +141,9 @@ Penanganan **exception** sudah diimplementasikan menggunakan `try/catch` dengan 
 
 ## Kesimpulan
 
-Dari **8 requirement teknis** yang diwajibkan, **7 requirement sudah terpenuhi** dan **1 requirement belum terpenuhi**: jagged array dan two-dimensional array.
+Dari **9 requirement teknis** yang diwajibkan, **8 requirement sudah terpenuhi** dan **1 requirement belum terpenuhi**: jagged array dan two-dimensional array.
 
 | Status | Requirement |
 |--------|-------------|
-| ✅ Sudah | Parallel arrays, linear search, hand-written sort, text files, 12+ methods, exception handling |
+| ✅ Sudah | Parallel arrays, linear search, binary search, hand-written sort, text files, 12+ methods, exception handling |
 | ❌ Belum | Jagged array, two-dimensional array |

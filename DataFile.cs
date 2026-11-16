@@ -99,41 +99,98 @@ public static class DataFile
 
             kolom[i].SetValue(convertedValue, index);
         }
-        
+
     }
 
     public static void saveData(string namaFile, Array[] kolom, int count)
     {
-        if (count <= 0) return;
-        string[] data = new string[count];
-
-        for (int i = 0; i < count; i++)
+        try
         {
-            data[i] = pararelToLine(kolom, i);
-            Console.WriteLine(data[i]);
-        }
+            if (count <= 0) return;
+            string[] data = new string[count];
 
-        File.WriteAllLines(namaFile, data);
+            for (int i = 0; i < count; i++)
+            {
+                data[i] = pararelToLine(kolom, i);
+                Console.WriteLine(data[i]);
+            }
+
+            File.WriteAllLines(namaFile, data);
+        }
+        catch (DirectoryNotFoundException ex)
+        {
+            Console.WriteLine("Folder tujuan tidak ditemukan: " + ex.Message);
+            Console.WriteLine("Gagal Save Data " + namaFile);
+            Console.ReadLine();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            Console.WriteLine("Tidak ada izin menulis file atau file berstatus Read-Only: " + ex.Message);
+            Console.WriteLine("Gagal Save Data " + namaFile);
+            Console.ReadLine();
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine("Gagal menyimpan file (file sedang digunakan atau disk penuh): " + ex.Message);
+            Console.WriteLine("Gagal Save Data " + namaFile);
+            Console.ReadLine();
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine("Nama atau path file tidak valid: " + ex.Message);
+            Console.WriteLine("Gagal Save Data " + namaFile);
+            Console.ReadLine();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Terjadi kesalahan saat menyimpan data: " + ex.Message);
+            Console.WriteLine("Gagal Save Data " + namaFile);
+            Console.ReadLine();
+        }
     }
 
     public static int loadData(string namaFile, Array[] kolom)
     {
-        if (!File.Exists(namaFile))
+        try
         {
+            if (!File.Exists(namaFile))
+            {
+                return Constant.KOSONG;
+            }
+
+            string[] lines = File.ReadAllLines(namaFile);
+
+            int count = 0;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+
+                lineToPararel(lines[i], kolom, count);
+                count++;
+            }
+
+            return count;
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine("Gagal membaca file: " + ex.Message);
+            Console.WriteLine("Gagal Load Data " + namaFile);
+            Console.ReadLine();
             return Constant.KOSONG;
         }
-
-        string[] lines = File.ReadAllLines(namaFile);
-
-        int count = 0;
-        for (int i = 0; i < lines.Length; i++)
+        catch (UnauthorizedAccessException ex)
         {
-            if (string.IsNullOrWhiteSpace(lines[i])) continue;
-
-            lineToPararel(lines[i], kolom, count);
-            count++;
+            Console.WriteLine("Akses ke file ditolak: " + ex.Message);
+            Console.WriteLine("Gagal Load Data " + namaFile);
+            Console.ReadLine();
+            return Constant.KOSONG;
         }
-
-        return count;
+        catch (Exception ex)
+        {
+            Console.WriteLine("Terjadi kesalahan: " + ex.Message);
+            Console.WriteLine("Gagal Load Data " + namaFile);
+            Console.ReadLine();
+            return Constant.KOSONG;
+        }
     }
 }

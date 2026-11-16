@@ -80,6 +80,7 @@ Jika Anda ingin berkontribusi pada proyek ini, silakan fork repository ini dan b
 - [Daftar Fungsi](Laporan/FUNGSI.md) — Dokumentasi seluruh fungsi (method) per class.
 - [Daftar Data](Laporan/DATA.md) — Dokumentasi kolom data, tipe data, dan entity pemiliknya.
 - [Kontribusi](Laporan/CONTRIBUSI.md) — Pemetaan kontribusi anggota per class berdasarkan username git.
+- [System Requirement](Laporan/SYSTEM_REQUIREMENT.md) — Status pemenuhan requirement teknis beserta lokasi implementasinya.
 
 
 ## License

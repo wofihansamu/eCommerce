@@ -32,7 +32,7 @@ class Products {
         _addProd("Jaket Denim", 110000, 160000, "Baju", 10);
         _addProd("Sepatu Running", 140000, 190000, "Sepatu", 15);
         _addProd("Gelang Tangan", 5000, 15000, "Aksesoris", 100);
-        _addProd( "Sandal Gunung", 45000, 65000, "Sepatu", 20);
+        _addProd("Sandal Gunung", 45000, 65000, "Sepatu", 20);
         _addProd("Jas Hujan Motor", 35000, 50000, "Aksesoris", 25);
         _addProd("Batik Lengan Pendek", 60000, 90000, "Baju", 15);
         _addProd("Celana Pendek Santai", 25000, 40000, "Celana", 35);
@@ -40,6 +40,32 @@ class Products {
         _addProd("Kupluk Rajut", 12000, 20000, "Topi", 25);
         _addProd("Sepatu Boots Kulit", 180000, 250000, "Sepatu", 5);
     }
+
+    public static int BinSearch(int[] dataArray, int target)
+    {
+        int left = 0;
+        int right = dataArray.Length - 1;
+
+        while (left <= right)
+        {
+            int mid = left + (right - left) / 2;
+
+            if (dataArray[mid] == target)
+            {
+                return mid;
+            }
+            else if (dataArray[mid] < target)
+            {
+                left = mid + 1;
+            }
+            else
+            {
+                right = mid - 1;
+            }
+        }
+        return Constant.KOSONG;
+    }
+
     public static int getIndexProductByID(int id)
     {
         if (productCount > 0)
@@ -79,13 +105,39 @@ class Products {
                     break;
                 case 3:
                     Console.WriteLine("Masukkan Produk ID untuk di Edit : ");
-                    int idToEdit = Convert.ToInt32(Console.ReadLine());
-                    modifyProductByID(idToEdit);
+                    try
+                    {
+                        int idToEdit = Convert.ToInt32(Console.ReadLine());
+                        modifyProductByID(idToEdit);
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Input tidak valid! Harap masukkan ID berupa angka bulat.");
+                        Console.ReadLine();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Terjadi kesalahan saat mengedit produk: " + ex.Message);
+                        Console.ReadLine();
+                    }
                     break;
                 case 4:
-                    Console.WriteLine("Masukkan Produk ID untuk di hapus : ");
-                    int idToDelete = Convert.ToInt32(Console.ReadLine());
-                    deleteProductByID(idToDelete);
+                    try
+                    {
+                        Console.WriteLine("Masukkan Produk ID untuk di hapus : ");
+                        int idToDelete = Convert.ToInt32(Console.ReadLine());
+                        deleteProductByID(idToDelete);
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Input tidak valid! Harap masukkan ID berupa angka bulat.");
+                        Console.ReadLine();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Terjadi kesalahan saat mengedit produk: " + ex.Message);
+                        Console.ReadLine();
+                    }
                     break;
                 case 0:
                     Program.MenuUtama();
@@ -96,7 +148,7 @@ class Products {
             }
         }
     }
-    
+
     public static void listProduct()
     {
         Console.Clear();

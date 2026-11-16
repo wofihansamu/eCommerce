@@ -70,14 +70,14 @@ class Products {
     {
         if (productCount > 0)
         {
-            // for (int i = 0; i < productCount; i++)
-            // {
-            //     if (productId[i] == id)
-            //     {
-            //         return i;
-            //     }
-            // }
-            return BinSearch(productId, id);
+            for (int i = 0; i < productCount; i++)
+            {
+                if (productId[i] == id)
+                {
+                    return i;
+                }
+            }
+            // return BinSearch(productId, id);
 
         }
         return Constant.KOSONG;

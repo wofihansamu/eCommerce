@@ -70,13 +70,14 @@ class Products {
     {
         if (productCount > 0)
         {
-            for (int i = 0; i < productCount; i++)
-            {
-                if (productId[i] == id)
-                {
-                    return i;
-                }
-            }
+            // for (int i = 0; i < productCount; i++)
+            // {
+            //     if (productId[i] == id)
+            //     {
+            //         return i;
+            //     }
+            // }
+            return BinSearch(productId, id);
 
         }
         return Constant.KOSONG;
@@ -173,7 +174,7 @@ class Products {
 
     static void _addProd(string _name, double _cost, double _price, string _kategori, int _stock=0)
     {
-        productId[productCount] = productId[productCount-1]+1;
+        productId[productCount] = productCount==0 ? productId[productCount]+1 : productId[productCount-1]+1;
         name[productCount] = _name;
         cost[productCount] = _cost;
         price[productCount] = _price;

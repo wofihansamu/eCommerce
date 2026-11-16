@@ -41,15 +41,14 @@ class Products {
         _addProd("Sepatu Boots Kulit", 180000, 250000, "Sepatu", 5);
     }
 
-    public static int BinSearch(int[] dataArray, int target)
+    public static int BinSearch(int[] dataArray, int target, int max)
     {
         int left = 0;
-        int right = dataArray.Length - 1;
+        int right = max - 1;
 
         while (left <= right)
         {
             int mid = left + (right - left) / 2;
-
             if (dataArray[mid] == target)
             {
                 return mid;
@@ -77,7 +76,7 @@ class Products {
             //         return i;
             //     }
             // }
-            return BinSearch(productId, id);
+            return BinSearch(productId, id, productCount);
 
         }
         return Constant.KOSONG;
@@ -167,7 +166,7 @@ class Products {
         }
         else
         {
-            Console.WriteLine("Products.Error : Produk Kosong !!");
+            Console.WriteLine("Produk Kosong !!");
             Console.ReadLine();
         }
     }
@@ -220,7 +219,7 @@ class Products {
 
                 String nameToEdit = Console.ReadLine() ?? name[indexToModify];
                 if (!string.IsNullOrEmpty(nameToEdit)) name[indexToModify] = nameToEdit;
-                
+
                 Console.WriteLine($"Enter Product Cost ({cost[indexToModify]:N0}) : ");
                 cost[indexToModify] = double.TryParse(Console.ReadLine(), out double inp_cost) ? inp_cost : cost[indexToModify];
 
@@ -235,12 +234,12 @@ class Products {
                 stock[indexToModify] = int.TryParse(Console.ReadLine(), out int inp_stock) ? inp_stock : stock[indexToModify];
             } else
             {
-                Console.WriteLine("Products.Error : Product ID not found");
+                Console.WriteLine("Product ID not found");
                 Console.ReadLine();
             }
         } else
         {
-            Console.WriteLine("Products.Error : No Product to be modify");
+            Console.WriteLine("No Product to be modify");
             Console.ReadLine();
         }
     }
